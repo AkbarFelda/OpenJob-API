@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Uploads / user-generated content
+uploads/
+
+# Generated files
+generated-erd.js
+erd.mmd
+how-to-run.txt
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Postman test folder
+postman-test/
+
+# Lock file
+package-lock.json
