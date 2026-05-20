@@ -8,7 +8,7 @@ node_modules/
 uploads/
 
 # Generated files
-generated-erd.js
+generate_erd.js
 erd.mmd
 how-to-run.txt
 
