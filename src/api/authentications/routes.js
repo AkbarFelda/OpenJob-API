@@ -1,5 +1,6 @@
 const express = require('express');
 const AuthenticationsHandler = require('./handler');
+const { verifyToken } = require('../../middlewares/auth');
 
 const router = express.Router();
 const handler = new AuthenticationsHandler();
