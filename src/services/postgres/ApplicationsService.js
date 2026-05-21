@@ -13,6 +13,7 @@ class ApplicationsService {
     );
 
     if (!result.rows[0].id) {
+      const InvariantError = require('../../exceptions/InvariantError');
       throw new InvariantError('Application gagal ditambahkan');
     }
 

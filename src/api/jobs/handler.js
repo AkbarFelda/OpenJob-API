@@ -1,3 +1,4 @@
+const CacheService = require('../../services/redis/CacheService');
 const JobsService = require('../../services/postgres/JobsService');
 const BookmarksService = require('../../services/postgres/BookmarksService');
 const JobsValidator = require('../../validator/jobs');
@@ -6,6 +7,7 @@ class JobsHandler {
   constructor() {
     this.jobsService = new JobsService();
     this.bookmarksService = new BookmarksService();
+    this.cacheService = new CacheService();
   }
 
   async postJobHandler(req, res, next) {
@@ -126,6 +128,9 @@ class JobsHandler {
 
       const bookmarkId = await this.bookmarksService.addBookmark(userId, jobId);
 
+      // Cache Invalidation: Hapus cache list milik user ini
+      await this.cacheService.delete(`bookmarks:user:${userId}`);
+
       res.status(201).json({
         status: 'success',
         data: {
@@ -157,6 +162,9 @@ class JobsHandler {
       const { id: userId } = req.user;
 
       await this.bookmarksService.deleteBookmarkByJobAndUser(jobId, userId);
+
+      // Cache Invalidation: Hapus cache list milik user ini
+      await this.cacheService.delete(`bookmarks:user:${userId}`);
 
       res.status(200).json({
         status: 'success',
